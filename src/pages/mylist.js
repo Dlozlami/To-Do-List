@@ -47,6 +47,10 @@ export default function MyList({ user, setUser}){
         .catch(error => console.error(error));
     }
 
+    const update = (listItem)=>{
+        
+    }
+
     return(
         <div className='mylistContainer'>
             <div style={{width:"50vw"}}>
@@ -66,7 +70,7 @@ export default function MyList({ user, setUser}){
                             <div style={{width:"50vw"}}>{items.task}</div>
                             {setPriority(items.priority)}
                             <div style={{width:"10vw",display:'flex',justifyContent:'space-evenly'}}>
-                                <button style={{fontSize:'large',marginRight:'1vw'}} >&#9998;</button>
+                                <button style={{fontSize:'large',marginRight:'1vw'}} onClick={() => update(items.id)}>&#9998;</button>
                                 <button style={{fontSize:'x-large'}} onClick={() => remove(items.id)}>&#128465;</button>
                             </div>
                         </div>
