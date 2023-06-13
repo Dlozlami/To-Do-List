@@ -27,3 +27,7 @@ main{
     align-self: center;
     justify-content: space-evenly;
 }
+
+button{
+    cursor: pointer;
+}

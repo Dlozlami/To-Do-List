@@ -1,13 +1,50 @@
-//import axios from "axios";
-//import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 export default function MyList({ user, setUser}){
-    //eslint-disable-next-line
     const navigate = useNavigate();
+    const [inputValues, setInputValues] = useState({
+        id:"",
+        password: "",
+        name:"",
+        surname: "",
+        email: "",
+        phone: "",
+        list:[]
+      });
 
     const addToList = ()=>{
-        <div>now now</div>
+
+        axios.get("http://localhost:4000/accounts/"+user.id)
+        .then(function (result) {
+            setInputValues(result.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+        let list = inputValues.list;
+        list.push({
+            "id": generateRandomString(),
+            "task": document.getElementById("task").value,
+            "priority": document.getElementById("priority").value,
+            "deadline": document.getElementById("deadline").value
+          });
+        
+        axios.patch("http://localhost:4000/accounts/"+inputValues.id, inputValues)
+        .then(response => {console.log(response.data)})
+        .catch(error => console.error(error));
+    }
+
+    const remove = (listItem)=>{
+        let list = user.list;
+        list = list.filter((tasks)=>tasks.id!==listItem);
+        
+        axios.patch("http://localhost:4000/accounts/"+user.id, {"list":list})
+        .then(response => {console.log(response.data)})
+        .catch(error => console.error(error));
     }
 
     return(
@@ -17,27 +54,41 @@ export default function MyList({ user, setUser}){
                 
                 <div className='listFormat'>
                     <div style={{width:"20vw"}}>Deadline</div>
-                    <div style={{width:"60vw"}}>Task</div>
+                    <div style={{width:"50vw"}}>Task</div>
                     <div style={{width:"20vw"}}>Priority</div>
+                    <div style={{width:"10vw"}}>Edit</div>
                 </div>
                 {user?
                 <div>
-                    {user.list.map((items)=>(
+                    {user.list.length?user.list.map((items)=>(
                         <div key={items.id} className='listFormat'>
                             <div style={{width:"20vw"}}>{items.deadline}</div>
-                            <div style={{width:"60vw"}}>{items.task}</div>
+                            <div style={{width:"50vw"}}>{items.task}</div>
                             {setPriority(items.priority)}
+                            <div style={{width:"10vw",display:'flex',justifyContent:'space-evenly'}}>
+                                <button style={{fontSize:'large',marginRight:'1vw'}} >&#9998;</button>
+                                <button style={{fontSize:'x-large'}} onClick={() => remove(items.id)}>&#128465;</button>
+                            </div>
                         </div>
-                    ))}
+                    )):
+                    <div>
+                    No list items.<br/>
+                </div>
+                    }
                 </div>
                 :
-                'No list items.'
+                <div>
+                    No list items.<br/>
+                    <button onClick={() => navigate('/')}>Log in</button>
+                </div>
+
                 }
             </div>
+
             <div style={{width:"30vw"}}>
                 <h1>Add tasks to the list.</h1>
-                <label htmlFor="name">Task</label><br />
-                <input type="text" id="id"/><br /><br />
+                <label htmlFor="task">Task</label><br />
+                <input type="text" id="task" name="task"/><br /><br />
 
                 <label htmlFor="priority">Priority</label><br />
                 <select name='priority' id='priority'>
@@ -48,6 +99,7 @@ export default function MyList({ user, setUser}){
                 <br /><br />
                 <label htmlFor="deadline">Deadline</label><br />
                 <input type="date" id="deadline"/><br /><br />
+                <button onClick={addToList}>Add to list</button><br /><br />
             </div>
         </div>
     );
@@ -55,7 +107,6 @@ export default function MyList({ user, setUser}){
 
 function setPriority(priorityNum)
 {
-    console.log(priorityNum)
     if(priorityNum==='Low'){
         return(
             <div className='w3-green' style={{width:"20vw"}}>Low</div>
@@ -72,3 +123,15 @@ function setPriority(priorityNum)
         );
     }
 }
+
+function generateRandomString(){
+    const characters = '0123456789';
+    let randomString = '';
+  
+    for (let i = 0; i < 7; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters[randomIndex];
+    }
+    
+    return randomString;
+  };

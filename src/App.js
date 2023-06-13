@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/login'
 import Header from './components/header';
 import NoPage from "./pages/noPage";
@@ -16,7 +16,12 @@ export default function App() {
         <Route path="/" element={<Header />}>
           <Route index element={<Home user={user} setUser={setUser}/>} />
           <Route path="Register" element={<Register />} />
-          <Route path="MyList" element={<MyList  user={user} setUser={setUser}/>} />
+          <Route path="MyList" element={
+            user?
+            <MyList  user={user} setUser={setUser}/>
+            :
+            <Navigate to="/"/>
+          } />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

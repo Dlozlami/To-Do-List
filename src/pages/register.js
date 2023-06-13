@@ -3,9 +3,10 @@ import React, { useState } from "react";
 
 
 export default function Register(){
+  
   const [userAdded,setUserAdded] = useState(false);
   const [isRegisterBtnShowing,setIsRegisterBtnShowing] = useState(true);
-  
+
   //eslint-disable-next-line
   const [account,setAccount] = useState(null);
 

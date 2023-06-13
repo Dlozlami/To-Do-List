@@ -13,6 +13,18 @@
           "task": "Email crew for new film schedule",
           "priority": "Low",
           "deadline": "19/06/2023"
+        },
+        {
+          "id": "785",
+          "task": "New item",
+          "priority": "Medium",
+          "deadline": "09/07/2023"
+        },
+        {
+          "id": "79995",
+          "task": "New item",
+          "priority": "Medium",
+          "deadline": "09/07/2023"
         }
       ]
     },
@@ -22,7 +34,8 @@
       "name": "Dlozi",
       "surname": "Mthethwa",
       "email": "dlozi.mthethwa@gmail.com",
-      "phone": "0763509451"
+      "phone": "0763509451",
+      "list": []
     },
     {
       "id": "rteerrwqq",
