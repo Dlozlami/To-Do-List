@@ -7,7 +7,7 @@ export default function MyList({ user, setUser}){
     const navigate = useNavigate();
 
     const addToList = ()=>{
-        
+        <div>now now</div>
     }
 
     return(
