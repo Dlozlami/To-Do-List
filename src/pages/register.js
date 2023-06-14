@@ -11,6 +11,7 @@ export default function Register(){
   const [account,setAccount] = useState(null);
 
   const checkUsername = (event)=>{
+    console.log(event.target.value)
     /*axios.get("http://localhost:4000/accounts/rtf44rrg")
       .then(function (response) {
         console.log(response);
@@ -63,8 +64,9 @@ export default function Register(){
   };
 
   return (
-    <div >
-        <div>
+    <div className="regContainer">
+        <div className="formStyles w3-round-large  w3-card-4" >
+        <h1 style={{fontWeight:'500'}} className="w3-text-blue">Registration</h1>
             <label htmlFor="id">Username</label>
             <input type="text" id="id" onChange={checkUsername}/>
             <br /><br />
@@ -83,9 +85,9 @@ export default function Register(){
             <label htmlFor="phone">Phone</label>
             <input type="text" id="phone" />
             <br /><br />
-            {isRegisterBtnShowing?<button onClick={add} >Register</button>:<button onClick={add} disabled>Register</button> }
+            {isRegisterBtnShowing?<button className="w3-btn w3-blue w3-card-4 w3-round-large"  onClick={add} >Register</button>:<button className="w3-btn w3-blue w3-card-4 w3-round-large"  onClick={add} disabled>Register</button> }
         </div>
-        {userAdded?alert('You have registered successfully!'):''}
+        {userAdded?<div className="w3-panel w3-green w3-round-small">'You have registered successfully!'</div>:''}
     </div>
   );
 }

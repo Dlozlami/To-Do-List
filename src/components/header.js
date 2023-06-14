@@ -4,17 +4,19 @@ export default function Header({user,setUser}){
     return(
         <>
         <nav>
-          <ul>
-            <li>
+            <div style={{width:'50vw',fontSize:'2.5em',color:'white'}}>&#128462;</div>
+            <button className="w3-btn w3-border w3-border-white w3-card-4 w3-round-large" style={{color:'white'}}>
               <Link to="/">Home</Link>
-            </li>
-            <li>
+            </button>
+            <button className="w3-btn w3-border w3-border-white w3-card-4 w3-round-large" style={{color:'white'}}>
+              <Link to="/login">Log In</Link>
+            </button>
+            <button className="w3-btn w3-border w3-border-white w3-card-4 w3-round-large" style={{color:'white'}}>
               <Link to="/register">{user?'Update Profile':'Register'}</Link>
-            </li>
-            <li>
-              <Link to="/mylist">MyList</Link>
-            </li>
-          </ul>
+            </button>
+            <button className="w3-btn w3-border w3-border-white w3-card-4 w3-round-large" style={{color:'white'}}>
+              <Link to="/todolist">To Do List</Link>
+            </button>
         </nav>
   
         <Outlet />

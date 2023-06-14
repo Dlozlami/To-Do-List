@@ -18,7 +18,7 @@ export default function Login({ user, setUser}){
             if(result.data.password===pwd){
                 setUser(result.data);
                 localStorage.setItem("userData",result.data);
-                navigate('MyList');
+                navigate('/ToDoList');
             }
           })
           .catch(function (error) {
@@ -29,24 +29,28 @@ export default function Login({ user, setUser}){
 
     if(user){
         return(
-            <>
-                <h1>Welcome, {user.name}</h1>
-                <button onClick={() => {setUser(null)}}>log out</button>
-            </>
+            <div style={{width:'90vw',height:'80vh'}}>
+                <div className=" w3-card-4 w3-round-large w3-white w3-display-middle" style={{padding:'20px',width:'30vw'}}>
+                    <h1 style={{fontWeight:'500'}} className="w3-text-blue">Welcome, {user.name}</h1>
+                    <button className="w3-btn w3-blue w3-card-4 w3-round-large" onClick={() => {setUser(null)}}>log out</button>
+                </div>
+            </div>
         );
     }
     return(
-        <>
-            <h1>Login</h1>
-            <div>
-                <label htmlFor="id">Username</label>
-                <input type="text" id="id" /> {validUsername?'':<span className="w3-red">Invalid username</span>}
-                <br /><br />
-                <label htmlFor="id">Password</label>
-                <input type="password" id="password" />{validPwd?'':<span className="w3-red">Invalid username</span>}
-                <br /><br />
-                <button onClick={login} style={{marginRight:"2vw"}}>Log in</button> <button onClick={() => navigate('Register')}>Register</button>
+        <div style={{width:'90vw',height:'80vh'}}>
+            <div className=" w3-card-4 w3-round-large w3-white w3-display-middle" style={{padding:'20px',width:'30vw'}}>
+                <h1 style={{fontWeight:'500'}} className="w3-text-blue">Login</h1>
+                <div>
+                    <label htmlFor="id" >Username</label><br />
+                    <input type="text" id="id" className="w3-round"/> {validUsername?'':<span className="w3-red">Invalid username</span>}
+                    <br /><br />
+                    <label htmlFor="id">Password</label><br />
+                    <input type="password" id="password"  className="w3-round"/>{validPwd?'':<span className="w3-red">Invalid username</span>}
+                    <br /><br />
+                    <button className="w3-btn w3-blue w3-card-4 w3-round-large" onClick={login} style={{marginRight:"2vw"}}>Log in</button> <button className="w3-btn w3-blue w3-card-4 w3-round-large" onClick={() => navigate('Register')}>Register</button>
+                </div>
             </div>
-        </>
+        </div>
     );
 }

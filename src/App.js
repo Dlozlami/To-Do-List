@@ -1,7 +1,8 @@
 import './App.css';
 
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/login'
+import Home from './pages/home';
+import Login from './pages/login';
 import Header from './components/header';
 import NoPage from "./pages/noPage";
 import MyList from './pages/mylist';
@@ -15,8 +16,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Header user={user} setUser={setUser}/>}>
           <Route index element={<Home user={user} setUser={setUser}/>} />
-          <Route path="Register" element={<Register />} />
-          <Route path="MyList" element={
+          <Route path="Register" element={<Register user={user} setUser={setUser}/>} />
+          <Route path="Login" element={<Login user={user} setUser={setUser}/>} />
+          <Route path="ToDoList" element={
             user?
             <MyList  user={user} setUser={setUser}/>
             :
