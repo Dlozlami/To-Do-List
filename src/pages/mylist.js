@@ -119,11 +119,11 @@ export default function MyList({ user, setUser }) {
             <div className='listBox w3-round-large w3-white w3-card-4'>
                 <h1 style={{fontWeight:'500'}} className="w3-text-blue">To Do List</h1>
                 <div className='listFormat'>
-                    <div style={{width:"20vw",backgroundColor:'gray'}}>Deadline</div>
-                    <div style={{width:"45vw",backgroundColor:'gray'}}>Task</div>
-                    <div style={{width:"15vw",backgroundColor:'gray'}}>Priority</div>
-                    <div style={{width:"10vw",backgroundColor:'gray'}}>Status</div>
-                    <div style={{width:"10vw",backgroundColor:'gray'}}>Edit</div>
+                    <div style={{width:"20vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Deadline</div>
+                    <div style={{width:"45vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Task</div>
+                    <div style={{width:"15vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Priority</div>
+                    <div style={{width:"10vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Status</div>
+                    <div style={{width:"10vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Edit</div>
                 </div>
                 
                 <div>
@@ -134,8 +134,8 @@ export default function MyList({ user, setUser }) {
                             {setPriority(items.priority)}
                             {setStatus(items)}
                             <div style={{width:"10vw",display:'flex',justifyContent:'space-evenly'}}>
-                                <button style={{fontSize:'large',marginRight:'1vw'}} onClick={() => update(items)}>&#9998;</button>
-                                <button style={{fontSize:'x-large'}} onClick={() => remove(items.id)}>&#128465;</button>
+                                <button style={{fontSize:'large',marginRight:'1vw',border:'none'}} onClick={() => update(items)}>&#9998;</button>
+                                <button style={{fontSize:'x-large',marginRight:'1vw',border:'none'}} onClick={() => remove(items.id)}>&#128465;</button>
                             </div>
                         </div>
                     )):
