@@ -223,6 +223,13 @@ function setStatus(item)
         );
     }
 }
+// eslint-disable-next-line
+function isExpired(deadline)
+{
+    const date = new Date(deadline);
+    console.log(date);
+    
+}
 
 function generateRandomString(){
     const characters = '0123456789';
