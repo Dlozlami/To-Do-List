@@ -13,7 +13,7 @@ export default function App() {
   return (
     <main>
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route path="/" element={<Header user={user} setUser={setUser}/>}>
           <Route index element={<Home user={user} setUser={setUser}/>} />
           <Route path="Register" element={<Register />} />
           <Route path="MyList" element={

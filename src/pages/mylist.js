@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState} from "react";
 import { useNavigate } from 'react-router-dom';
 
 export default function MyList({ user, setUser}){
+    const [isUpdating,setIsUpdating] = useState(false);
     const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({
         id:"",
@@ -14,7 +15,40 @@ export default function MyList({ user, setUser}){
         list:[]
       });
 
+    const [updateItem,setUpdateItem] = useState({
+        id: '',
+        task:  '',
+        priority:  '',
+        deadline:  ''
+    });
+
     const addToList = ()=>{
+        axios.get("http://localhost:4000/accounts/"+user.id)
+        .then(function (result) {
+            setInputValues(result.data);
+
+            
+        }).then(()=>{
+        let list = inputValues.list;
+        list.push({
+            "id": generateRandomString(),
+            "task": document.getElementById("task").value,
+            "priority": document.getElementById("priority").value,
+            "deadline": document.getElementById("deadline").value
+          });
+
+        axios.patch("http://localhost:4000/accounts/"+inputValues.id, inputValues)
+        .then(response => {console.log(response.data)})
+        .catch(error => console.error(error));
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+    }
+
+    const updateList = ()=>{
 
         axios.get("http://localhost:4000/accounts/"+user.id)
         .then(function (result) {
@@ -24,18 +58,19 @@ export default function MyList({ user, setUser}){
             console.log(error);
         });
 
-
         let list = inputValues.list;
         list.push({
-            "id": generateRandomString(),
-            "task": document.getElementById("task").value,
-            "priority": document.getElementById("priority").value,
-            "deadline": document.getElementById("deadline").value
+            "id": document.getElementById("idU").value,
+            "task": document.getElementById("taskU").value,
+            "priority": document.getElementById("priorityU").value,
+            "deadline": document.getElementById("deadlineU").value
           });
         
         axios.patch("http://localhost:4000/accounts/"+inputValues.id, inputValues)
         .then(response => {console.log(response.data)})
         .catch(error => console.error(error));
+        console.log(updateItem);
+        setIsUpdating(false);
     }
 
     const remove = (listItem)=>{
@@ -48,14 +83,25 @@ export default function MyList({ user, setUser}){
     }
 
     const update = (listItem)=>{
+        setIsUpdating(true);
+        setUpdateItem({
+        id: listItem.id,
+        task:  listItem.task,
+        priority:  listItem.priority,
+        deadline: listItem.deadline,
+        });
         
+        document.getElementById("idU").value = listItem.id;
+        //Make Id readonly
+        document.getElementById("taskU").value = listItem.task;
+        document.getElementById("priorityU").value = listItem.priority;
+        document.getElementById("deadlineU").value = listItem.deadline;
     }
 
     return(
         <div className='mylistContainer'>
             <div style={{width:"50vw"}}>
                 <h1>To Do List</h1>
-                
                 <div className='listFormat'>
                     <div style={{width:"20vw"}}>Deadline</div>
                     <div style={{width:"50vw"}}>Task</div>
@@ -70,14 +116,14 @@ export default function MyList({ user, setUser}){
                             <div style={{width:"50vw"}}>{items.task}</div>
                             {setPriority(items.priority)}
                             <div style={{width:"10vw",display:'flex',justifyContent:'space-evenly'}}>
-                                <button style={{fontSize:'large',marginRight:'1vw'}} onClick={() => update(items.id)}>&#9998;</button>
+                                <button style={{fontSize:'large',marginRight:'1vw'}} onClick={() => update(items)}>&#9998;</button>
                                 <button style={{fontSize:'x-large'}} onClick={() => remove(items.id)}>&#128465;</button>
                             </div>
                         </div>
                     )):
                     <div>
-                    No list items.<br/>
-                </div>
+                        No list items.<br/>
+                    </div>
                     }
                 </div>
                 :
@@ -85,25 +131,43 @@ export default function MyList({ user, setUser}){
                     No list items.<br/>
                     <button onClick={() => navigate('/')}>Log in</button>
                 </div>
-
                 }
             </div>
-
+            
             <div style={{width:"30vw"}}>
-                <h1>Add tasks to the list.</h1>
-                <label htmlFor="task">Task</label><br />
-                <input type="text" id="task" name="task"/><br /><br />
-
-                <label htmlFor="priority">Priority</label><br />
-                <select name='priority' id='priority'>
-                    <option value='Low'>Low</option>
-                    <option value='Medium'>Medium</option>
-                    <option value='High'>High</option>
-                </select>    
-                <br /><br />
-                <label htmlFor="deadline">Deadline</label><br />
-                <input type="date" id="deadline"/><br /><br />
-                <button onClick={addToList}>Add to list</button><br /><br />
+                
+                <div style={isUpdating?{display:'block',backgroundColor:'palegreen'}:{display:'none'}}>
+                    <h1>Update this task</h1>
+                    <label htmlFor="idU">Item serial key</label><br />
+                    <input type="text" id="idU" name="idU"/><br /><br />
+                    <label htmlFor="taskU">Task</label><br />
+                    <input type="text" id="taskU" name="taskU" /><br /><br />
+                    <label htmlFor="priorityU">Priority</label><br />
+                    <select name='priorityU' id='priorityU' >
+                        <option value='Low'>Low</option>
+                        <option value='Medium'>Medium</option>
+                        <option value='High'>High</option>
+                    </select>    
+                    <br /><br />
+                    <label htmlFor="deadlineU">Deadline</label><br />
+                    <input type="date" id="deadlineU" required/><br /><br />
+                    <button onClick={updateList}>Update</button><br /><br />
+                </div>
+                <div style={!isUpdating?{display:'block'}:{display:'none'}}>
+                    <h1>Add tasks to the list</h1>
+                    <label htmlFor="task">Task</label><br />
+                    <input type="text" id="task" name="task"/><br /><br />
+                    <label htmlFor="priority">Priority</label><br />
+                    <select name='priority' id='priority'>
+                        <option value='Low'>Low</option>
+                        <option value='Medium'>Medium</option>
+                        <option value='High'>High</option>
+                    </select>    
+                    <br /><br />
+                    <label htmlFor="deadline">Deadline</label><br />
+                    <input type="date" id="deadline"/><br /><br />
+                    <button onClick={addToList}>Add to list</button><br /><br />
+                </div>
             </div>
         </div>
     );
@@ -138,4 +202,4 @@ function generateRandomString(){
     }
     
     return randomString;
-  };
+};
