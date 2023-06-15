@@ -65,6 +65,13 @@ input{
     width: 25vw;
     background-color: whitesmoke;
     border: 1px black solid;
+    height: 4vh;
+    padding-left: 1vw;
+}
+
+select{
+    height: 4vh;
+
 }
 
 .regContainer{

@@ -118,17 +118,17 @@ export default function MyList({ user, setUser }) {
         <div className='mylistContainer'>
             <div className='listBox w3-round-large w3-white w3-card-4'>
                 <h1 style={{fontWeight:'500'}} className="w3-text-blue">To Do List</h1>
-                <div className='listFormat'>
-                    <div style={{width:"20vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Deadline</div>
-                    <div style={{width:"45vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Task</div>
-                    <div style={{width:"15vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Priority</div>
-                    <div style={{width:"10vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Status</div>
-                    <div style={{width:"10vw",backgroundColor:'gray',paddingLeft:'1vw'}}>Edit</div>
+                <div className='listFormat w3-large'>
+                    <div style={{width:"20vw",backgroundColor:'gray',padding:'1vw'}}>Deadline</div>
+                    <div style={{width:"45vw",backgroundColor:'gray',padding:'1vw'}}>Task</div>
+                    <div style={{width:"15vw",backgroundColor:'gray',padding:'1vw'}}>Priority</div>
+                    <div style={{width:"10vw",backgroundColor:'gray',padding:'1vw'}}>Status</div>
+                    <div style={{width:"10vw",backgroundColor:'gray',padding:'1vw'}}>Edit</div>
                 </div>
                 
                 <div>
                     {inputValues.list.length?inputValues.list.map((items)=>(
-                        <div key={items.id} className='taskItems'>
+                        <div key={items.id} className='taskItems' style={isExpired}>
                             <div style={{width:"20vw",paddingLeft:'1vw'}}>{items.deadline}</div>
                             <div style={{width:"45vw",paddingLeft:'1vw'}}>{items.task}</div>
                             {setPriority(items.priority)}
@@ -228,7 +228,19 @@ function isExpired(deadline)
 {
     const date = new Date(deadline);
     console.log(date);
-    
+
+    const slash = str.indexOf('/');
+    const dash = str.indexOf('-');
+
+    if (slash !== -1) {
+        
+    }
+
+    if (dash !== -1) {
+        
+    }
+
+    return({});
 }
 
 function generateRandomString(){

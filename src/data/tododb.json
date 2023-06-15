@@ -23,17 +23,17 @@
           "status": "Pending"
         },
         {
-          "id": "4023341",
-          "task": "Go to Paris",
-          "priority": "Low",
-          "deadline": "2023-07-09",
-          "status": "Complete"
-        },
-        {
           "id": "0760224",
           "task": "Check on takeAlot order",
           "priority": "Medium",
           "deadline": "2023-12-15",
+          "status": "Pending"
+        },
+        {
+          "id": "4023341",
+          "task": "Go to Paris",
+          "priority": "Low",
+          "deadline": "2023-07-09",
           "status": "Pending"
         }
       ]
