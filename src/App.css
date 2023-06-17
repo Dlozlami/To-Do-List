@@ -71,7 +71,6 @@ input{
 
 select{
     height: 4vh;
-
 }
 
 .regContainer{
@@ -86,5 +85,5 @@ select{
 .formStyles{
     background-color: white;
     padding: 50px;
-    width: 50vw;
+    width: 60vw;
 }

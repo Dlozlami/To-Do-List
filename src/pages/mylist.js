@@ -128,7 +128,7 @@ export default function MyList({ user, setUser }) {
                 
                 <div>
                     {inputValues.list.length?inputValues.list.map((items)=>(
-                        <div key={items.id} className='taskItems' style={isExpired}>
+                        <div key={items.id} className='taskItems' style={()=>isExpired(items.deadline)}>
                             <div style={{width:"20vw",paddingLeft:'1vw'}}>{items.deadline}</div>
                             <div style={{width:"45vw",paddingLeft:'1vw'}}>{items.task}</div>
                             {setPriority(items.priority)}
@@ -229,8 +229,8 @@ function isExpired(deadline)
     const date = new Date(deadline);
     console.log(date);
 
-    const slash = str.indexOf('/');
-    const dash = str.indexOf('-');
+    const slash = deadline.indexOf('/');
+    const dash = deadline.indexOf('-');
 
     if (slash !== -1) {
         
