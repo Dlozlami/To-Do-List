@@ -11,14 +11,26 @@ export default function Register(){
   const [account,setAccount] = useState(null);
 
   const checkUsername = (event)=>{
-    console.log(event.target.value)
-    /*axios.get("http://localhost:4000/accounts/rtf44rrg")
+
+    axios.get("http://localhost:4000/accounts/"+event.target.value)
       .then(function (response) {
+        setIsRegisterBtnShowing(false);
+        let username = (event.target.value).split(' ');
+        username[0]?document.getElementById("invalidUser").style.display="inline":document.getElementById("invalidUser").style.display="none";
         console.log(response);
       })
       .catch(function (error) {
+        setIsRegisterBtnShowing(true);
+        document.getElementById("invalidUser").style.display="none";
         console.log(error);
-      });*/
+      });
+  }
+
+  const checkEmail = (event)=>{
+    let email = (event.target.value).split(' ')[0];
+    // eslint-disable-next-line
+    var newRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    email.match(newRegex)?document.getElementById("invalidEmail").style.display="none":document.getElementById("invalidEmail").style.display="inline";
   }
 
   //eslint-disable-next-line
@@ -71,13 +83,13 @@ export default function Register(){
             <div style={{marginRight:'2vw'}}>
               <label htmlFor="id">Username</label><br />
               <input type="text" id="id" onChange={checkUsername}/>
-              <br /><br />
+              <br /><span className="w3-text-red" id="invalidUser" style={{display:'none'}}>* This username already exists.</span><br />
               <label htmlFor="name">Name</label><br />
               <input type="text" id="name" />
               <br /><br />
               <label htmlFor="email">Email</label><br />
-              <input type="email" id="email" />
-              <br /><br />
+              <input type="email" id="email" onChange={checkEmail}/>
+              <br /><span className="w3-text-red" id="invalidEmail" style={{display:'none'}}>* This is not a valid email address.</span><br />
             </div>
             <div>
               <label htmlFor="id">Password</label><br />
